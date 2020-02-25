@@ -34,8 +34,11 @@ public class HelikopterVmesnikImpl implements  HelikopterVmesnik {
     public void dodajHelikopter(Helikopter helikopter) {
         final String sql = "insert into helikopter(id, sifra, imeHelikopterja , status) values(:id,:sifra,:imeHelikopterja,:status)";
         KeyHolder holder = new GeneratedKeyHolder();
+        List<Helikopter> list = template.query("select * from helikopter", new HelicopterRowMapper());
+        int id = list.size()+1;
         SqlParameterSource param = new MapSqlParameterSource()
-                .addValue("id", helikopter.getId())
+                //.addValue("id", helikopter.getId())
+                .addValue("id", id)
                 .addValue("sifra", helikopter.getSifra())
                 .addValue("imeHelikopterja", helikopter.getImeHelikopterja())
                 .addValue("status", helikopter.getStatus());
